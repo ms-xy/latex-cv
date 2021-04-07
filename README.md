@@ -6,26 +6,25 @@ Curriculum vitae written in LaTeX.
 
 1. Get a copy of TeX Live (https://tug.org/texlive/)
   - If custom installation, required packages are:
-    - fontspec
-    - xunicode
-    - xltxtra
-    - url
-    - paralist
-    - enumitem
-    - layouts
-    - xparse (>=2021/03)
-    - xcolor
-    - layaureo
-    - hyperref
-    - titlesec
     - array
-    - wrapfig
+    - enumitem
+    - fontspec
     - graphicx
+    - hyperref
+    - layouts
+    - paralist
+    - titlesec
+    - url
+    - wrapfig
+    - xcolor
+    - xltxtra
+    - xparse (>=2021/03)
+    - xunicode
   - Example contents additionally need:
-    - mwe
     - babel
     - blindtext
     - lipsum
+    - mwe
 1. Download `curriculum-vitae.tex` from this repository
 1. Run XeLaTeX to produce a PDF file from the source TeX-file
   - If you are on Windows:

@@ -22,9 +22,10 @@
 \documentclass[a4paper,10pt]{article}
 
 \usepackage{fontspec}
-\usepackage{xunicode,xltxtra,url,paralist,enumitem}
-\usepackage{layouts}
+\usepackage{xunicode}
+\usepackage{xltxtra,paralist,enumitem}
 \usepackage{xparse}
+\usepackage{wrapfig, graphicx}
 
 % Define custom colors
 \usepackage[usenames,dvipsnames]{xcolor}
@@ -32,10 +33,10 @@
 \definecolor{itemSubtextColor}{rgb}{0.3,0.3,0.3}
 
 % A4 page margin, alternatively use \usepackage{fullpage}
-\usepackage[big]{layaureo}
+% \usepackage[big]{layaureo}
 
 % Set default link color
-\usepackage{hyperref}
+\usepackage{url, hyperref}
 \hypersetup{colorlinks,breaklinks,urlcolor=linkColor,linkcolor=linkColor}
 
 % Customize \section formatting
@@ -60,12 +61,103 @@
         \end{minipage}%
     }}
 
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ %
+%   Variable Declarations                                                      %
+%----------------------------------------------------------------------------- %
+\newlength{\cvImageSize}
+\newlength{\cvPersonalDataLeftColumnWidth}
+\newlength{\cvPersonalDataRightColumnWidth}
+
+\newlength{\cvTableWidth}
+\newlength{\cvLeftColumnWidth}
+\newlength{\cvRightColumnWidth}
+
+\newlength{\cvBulletPointsLeftMargin}
+
+\newlength{\cvTopMargin}
+\newlength{\cvBottomMargin}
+\newlength{\cvLeftMargin}
+\newlength{\cvRightMargin}
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ %
+%                                                                              %
+%                                                                              %
+%                                  SETTINGS                                    %
+%                                                                              %
+%                                                                              %
+% ---------------------------------------------------------------------------- %
+%                                                                              %
+% Plain page headers and footers                                               %
+\pagestyle{empty}
+%                                                                              %
+% Set page margins                                                             %
+\setlength{\cvTopMargin}{1.9cm}
+\setlength{\cvBottomMargin}{1.5cm}
+\setlength{\cvLeftMargin}{3.33cm}
+\setlength{\cvRightMargin}{\cvLeftMargin}
+%                                                                              %
+% Reduce top margin via voffset                                                %
+% \addtolength{\voffset}{-0.8cm}
+%                                                                              %
+% Size of the small image in the personal details section                      %
+% (Height of the image when scaled should be around 7cm)                       %
+\setlength{\cvImageSize}{4cm}
+%                                                                              %
+% Size of the left column in cv tables                                         %
+\setlength{\cvLeftColumnWidth}{4.6cm}
+%                                                                              %
+% Size of the left column in personal data table                               %
+\setlength{\cvPersonalDataLeftColumnWidth}{2.5cm}
+%                                                                              %
+% Margin left of the bullet points when using column type 'i', like in the     %
+% experience section                                                           %
+\setlength{\cvBulletPointsLeftMargin}{0.5cm}
+%                                                                              %
+% Entirely remove paragraph indentation                                        %
+\setlength{\parindent}{0pt}
+%                                                                              %
+% The following packages are for demonstration purposes only. Remove them      %
+% when filling this template with your own data.                               %
+\usepackage{mwe}
+\usepackage[german]{babel}
+\usepackage{blindtext}
+\usepackage{lipsum}
+%                                                                              %
+% ---------------------------------------------------------------------------- %
+
+
+% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ %
+%   Debugging                                                                  %
+%----------------------------------------------------------------------------- %
+% Show margin frames:                                                          %
+% \usepackage{showframe}
+%                                                                              %
+% Additional error output:                                                     %
+% \errorcontextlines 10000
+%                                                                              %
+% Show ruler where overful hbox                                                %
+% \overfullrule=1cm
+%                                                                              %
+% Use together with \traceon \traceoff                                         %
+% \usepackage{trace}
+%                                                                              %
+% The following may help in determining alignment problems in tables within    %
+% this document:                                                               %
+% tabw in cm:  \printinunitsof{cm}\prntlen{\cvTableWidth} \newline             %
+% lcw in cm: \printinunitsof{cm}\prntlen{\cvLeftColumnWidth}\newline           %
+% rcw in cm: \printinunitsof{cm}\prntlen{\cvRightColumnWidth}\newline          %
+% textw in cm: \printinunitsof{cm}\prntlen{\textwidth}\newline                 %
+% linew in cm: \printinunitsof{cm}\prntlen{\linewidth}\newline                 %
+% ---------------------------------------------------------------------------- %
+
+
 % ============================================================================ %
 % Define cv lists, bullet lists, list entries and bullet points as well as seps
 
 \DeclareDocumentCommand\cvPersonalData{ m m }{
     \vspace{3mm}
-    \begin{minipage}{\linewidth-10pt}
+    \begin{minipage}{\dimexpr(1.0\linewidth -10pt)\relax}
         \begin{wrapfigure}{r}{\cvImageSize}
             \vspace*{-0.8\baselineskip}%
             \includegraphics[width=\cvImageSize]{#1}
@@ -76,11 +168,11 @@
         % use makebox to make 0-width
         \makebox[0pt][l]{~}
 
-        \begin{minipage}{\linewidth-10pt}
+        \begin{minipage}{\dimexpr(1.0\linewidth -10pt)\relax}
             \bgroup
-            \def\arraystretch{1.5} % row margin multiplier
-            \def\leftcolwidth{2.5cm} % left column size, right column size auto-calculated
-            \begin{tabular*}{\linewidth}{R{\leftcolwidth}|L{\linewidth-\leftcolwidth-4.0\tabcolsep}}
+            % row margin multiplier
+            \renewcommand{\arraystretch}{1.5}
+            \begin{tabular*}{\linewidth}{R{\cvPersonalDataLeftColumnWidth}|L{\cvPersonalDataRightColumnWidth}}
                 #2
             \end{tabular*}
             \egroup
@@ -91,7 +183,7 @@
 
 \DeclareDocumentCommand\cvList{ m }{
     \vspace{3mm}
-    \begin{tabular*}{\tableWidth}{R{\cvLeftColumnWidth}|L{\rightColumnWidth}}
+    \begin{tabular*}{\cvTableWidth}{R{\cvLeftColumnWidth}|L{\cvRightColumnWidth}}
         #1
     \end{tabular*}
     \vspace{5mm}
@@ -99,7 +191,7 @@
 
 \DeclareDocumentCommand\cvBulletList{ m }{
     \vspace{3mm}
-    \begin{tabular*}{\tableWidth}{R{\cvLeftColumnWidth}|i{\rightColumnWidth}}
+    \begin{tabular*}{\cvTableWidth}{R{\cvLeftColumnWidth}|i{\cvRightColumnWidth}}
         #1
     \end{tabular*}
     \vspace{5mm}
@@ -131,7 +223,7 @@
 
 \newcommand{\cvRulerSep}{
     \multicolumn{2}{l}
-    {\textcolor{lightgray}{\rule{\tableWidth-10pt}{0.4pt}}}
+    {\textcolor{lightgray}{\rule{\dimexpr(1.0\cvTableWidth-10pt)\relax}{0.4pt}}}
     \vspace{4pt}
     \tabularnewline
 }
@@ -139,80 +231,50 @@
 \newcommand{\cvInvisibleSep}{
     \multicolumn{2}{l}{}\tabularnewline
 }
+
+
+% ============================================================================ %
+% Apply layout customizations
+\usepackage{layouts}
+\usepackage{geometry}
+\geometry{
+    xetex, % if running luatex, might need to drop xetex driver option
+    % showframe, showcrop,
+    top=\cvTopMargin,
+    bottom=\cvBottomMargin,
+    left=\cvLeftMargin,
+    right=\cvRightMargin,
+    % hcentering,
+    % vcentering,
+    % 210 x 297 mm^2 for a4
+    % textwidth=180mm,
+    % textheight=277mm
+}
+
+% ============================================================================ %
+% ############################################################################ %
+\begin{document}
+% ############################################################################ %
 % ============================================================================ %
 
-% entirely remove paragraph indentation
-\setlength{\parindent}{0pt}
-
-% imports for photo display
-\usepackage{wrapfig, graphicx}
-
-
-% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ %
-%   Debugging                                                                  %
-%----------------------------------------------------------------------------- %
-% Show margin frames:                                                          %
-\usepackage{showframe}
-%                                                                              %
-% The following packages should be removed they are for demonstration purposes %
-% only. Either simply comment out the import \usepackage statements or         %
-% completely remove the statements:                                            %
-\usepackage{mwe}
-\usepackage[german]{babel}
-\usepackage{blindtext}
-\usepackage{lipsum}
-%                                                                              %
-% The following may help in determining alignment problems in tables within    %
-% this document:                                                               %
-% tw in cm:  \printinunitsof{cm}\prntlen{\tableWidth} \newline                         %
-% leftColumnWidth in cm: \printinunitsof{cm}\prntlen{\cvLeftColumnWidth}\newline                         %
-% rightColumnWidth in cm: \printinunitsof{cm}\prntlen{\rightColumnWidth}\newline                         %
-% textwidth in cm: \printinunitsof{cm}\prntlen{\textwidth}\newline             %
-% linewidth in cm: \printinunitsof{cm}\prntlen{\linewidth}\newline             %
-% ---------------------------------------------------------------------------- %
-
-
-\begin{document}
-
-
-% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ %
-%                                                                              %
-%                                                                              %
-%                                  SETTINGS                                    %
-%                                                                              %
-%                                                                              %
-% ---------------------------------------------------------------------------- %
-%                                                                              %
-% Remove page numbering                                                        %
-\pagestyle{empty}
-%                                                                              %
-% Reduce top margin                                                            %
-\addtolength{\voffset}{-0.8cm}
-%                                                                              %
-% Size of the small image in the personal details section                      %
-% (Height of the image when scaled should be around 6-7cm)                     %
-\def\cvImageSize{4cm}
-%                                                                              %
-% Size of the left column in cv tables                                         %
-\def\cvLeftColumnWidth{4.6cm}
-%                                                                              %
-% Margin left of the bullet points when using column type 'i', like in the     %
-% experience section                                                           %
-\def\cvBulletPointsLeftMargin{0.5cm}
-%                                                                              %
-% ---------------------------------------------------------------------------- %
-
-
+% DO NOT CHANGE THESE CALCULATIONS
 
 % apparently tabular env adds a forced padding of 1pt on the left + 1pt
 % (invisible) border, subtract 2pt to avoid affecting the right page margin
-% additionally subtract 0.22pt to suppress some additional overflow messages
-\def\tableWidth{\dimexpr \linewidth -2pt -0.22pt \relax}
+% somewhere an additional 0.22pt get added in the table construct
+\setlength{\cvTableWidth}{\dimexpr(%
+        1.0\linewidth -2.22pt%
+    )\relax}
 % Somehow somewhere 0.4pt diff is added - probably by tabcolsep somehow (4x0.1)
-\def\rightColumnWidth{\dimexpr \tableWidth -\cvLeftColumnWidth -4.0\tabcolsep -0.4pt \relax}
+\setlength{\cvRightColumnWidth}{\dimexpr(%
+        1.0\cvTableWidth -1.0\cvLeftColumnWidth -4.0\tabcolsep %-0.4pt%
+    )\relax}
+\setlength{\cvPersonalDataRightColumnWidth}{\dimexpr(
+        1.0\linewidth -1.0\cvPersonalDataLeftColumnWidth -4.0\tabcolsep%
+    )\relax}
 
 
-
+% ============================================================================ %
 % ############################################################################ %
 %	NAME, IMAGE AND CONTACT INFORMATION                                        %
 % ---------------------------------------------------------------------------- %
@@ -233,6 +295,7 @@
 }
 
 
+% ============================================================================ %
 % ############################################################################ %
 %   EDUCATION                                                                  %
 %----------------------------------------------------------------------------- %
@@ -250,6 +313,7 @@
 
 
 % ============================================================================ %
+% ############################################################################ %
 %	WORK EXPERIENCE                                                            %
 %----------------------------------------------------------------------------- %
 
@@ -267,6 +331,7 @@
 
 
 % ============================================================================ %
+% ############################################################################ %
 %	SKILLS                                                                     %
 % ---------------------------------------------------------------------------- %
 
@@ -286,9 +351,12 @@
     }
 }
 
+
 % ============================================================================ %
+% ############################################################################ %
 %   LANGUAGES                                                                  %
 % ---------------------------------------------------------------------------- %
+
 \section{Sprachen}
 \cvList{
     \cvEntry{Deutsch}{Muttersprache}
