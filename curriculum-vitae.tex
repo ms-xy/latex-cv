@@ -52,7 +52,7 @@
 \newcolumntype{i}[1]%
     {>{\begin{minipage}[t]{\linewidth}%
         \let\\\tabularnewline%
-        \begin{itemize}[leftmargin=\bulletpointsLeftMargin]%
+        \begin{itemize}[leftmargin=\cvBulletPointsLeftMargin]%
         \addtolength{\rightskip}{0pt plus 50pt}% for raggedright
         \setlength{\itemsep}{-\parsep}%
             }L{#1}<{%
@@ -66,9 +66,9 @@
 \DeclareDocumentCommand\cvPersonalData{ m m }{
     \vspace{3mm}
     \begin{minipage}{\linewidth-10pt}
-        \begin{wrapfigure}{r}{\imageSize}
+        \begin{wrapfigure}{r}{\cvImageSize}
             \vspace*{-0.8\baselineskip}%
-            \includegraphics[width=\imageSize]{#1}
+            \includegraphics[width=\cvImageSize]{#1}
         \end{wrapfigure}
 
         %~ % unbreakable whitespace, required for wrapfigure to work correctly
@@ -91,7 +91,7 @@
 
 \DeclareDocumentCommand\cvList{ m }{
     \vspace{3mm}
-    \begin{tabular*}{\tableWidth}{R{\leftColumnWidth}|L{\rightColumnWidth}}
+    \begin{tabular*}{\tableWidth}{R{\cvLeftColumnWidth}|L{\rightColumnWidth}}
         #1
     \end{tabular*}
     \vspace{5mm}
@@ -99,7 +99,7 @@
 
 \DeclareDocumentCommand\cvBulletList{ m }{
     \vspace{3mm}
-    \begin{tabular*}{\tableWidth}{R{\leftColumnWidth}|i{\rightColumnWidth}}
+    \begin{tabular*}{\tableWidth}{R{\cvLeftColumnWidth}|i{\rightColumnWidth}}
         #1
     \end{tabular*}
     \vspace{5mm}
@@ -117,7 +117,7 @@
     \tabularnewline
 }
 
-\DeclareDocumentCommand\bulletpoint{ m d<> g d<> }{
+\DeclareDocumentCommand\cvBulletPoint{ m d<> o d<> }{
     \item #1
         \IfValueTF {#3} {
             \newline
@@ -152,7 +152,7 @@
 %   Debugging                                                                  %
 %----------------------------------------------------------------------------- %
 % Show margin frames:                                                          %
-% \usepackage{showframe}
+\usepackage{showframe}
 %                                                                              %
 % The following packages should be removed they are for demonstration purposes %
 % only. Either simply comment out the import \usepackage statements or         %
@@ -165,7 +165,7 @@
 % The following may help in determining alignment problems in tables within    %
 % this document:                                                               %
 % tw in cm:  \printinunitsof{cm}\prntlen{\tableWidth} \newline                         %
-% leftColumnWidth in cm: \printinunitsof{cm}\prntlen{\leftColumnWidth}\newline                         %
+% leftColumnWidth in cm: \printinunitsof{cm}\prntlen{\cvLeftColumnWidth}\newline                         %
 % rightColumnWidth in cm: \printinunitsof{cm}\prntlen{\rightColumnWidth}\newline                         %
 % textwidth in cm: \printinunitsof{cm}\prntlen{\textwidth}\newline             %
 % linewidth in cm: \printinunitsof{cm}\prntlen{\linewidth}\newline             %
@@ -191,14 +191,14 @@
 %                                                                              %
 % Size of the small image in the personal details section                      %
 % (Height of the image when scaled should be around 6-7cm)                     %
-\def\imageSize{4cm}
+\def\cvImageSize{4cm}
 %                                                                              %
 % Size of the left column in cv tables                                         %
-\def\leftColumnWidth{4.6cm}
+\def\cvLeftColumnWidth{4.6cm}
 %                                                                              %
 % Margin left of the bullet points when using column type 'i', like in the     %
 % experience section                                                           %
-\def\bulletpointsLeftMargin{0.5cm}
+\def\cvBulletPointsLeftMargin{0.5cm}
 %                                                                              %
 % ---------------------------------------------------------------------------- %
 
@@ -209,7 +209,7 @@
 % additionally subtract 0.22pt to suppress some additional overflow messages
 \def\tableWidth{\dimexpr \linewidth -2pt -0.22pt \relax}
 % Somehow somewhere 0.4pt diff is added - probably by tabcolsep somehow (4x0.1)
-\def\rightColumnWidth{\dimexpr \tableWidth -\leftColumnWidth -4.0\tabcolsep -0.4pt \relax}
+\def\rightColumnWidth{\dimexpr \tableWidth -\cvLeftColumnWidth -4.0\tabcolsep -0.4pt \relax}
 
 
 
@@ -273,16 +273,16 @@
 \section{Maschinenbau-Kenntnisse}
 \cvBulletList{%
     \cvEntry{Fundierte Kenntnisse}{
-        \bulletpoint{Wasserstoffmotoren}{\lipsum[10]}
-        \bulletpoint{Eintrag mit Subtext}{\lipsum[20]}
-        \bulletpoint{Ohne Sub-Text}
+        \cvBulletPoint{Wasserstoffmotoren}[\lipsum[10]]
+        \cvBulletPoint{Eintrag mit Subtext}[\lipsum[20]]
+        \cvBulletPoint{Ohne Sub-Text}
     }
     \cvRulerSep
     \cvEntry{Fortgeschrittene Kenntnisse}{
-        \bulletpoint{Ohne nachfolgendem vertikalen Abstand}<0pt>
-        \bulletpoint{Kein Abstand zum Subtext}<0pt>{\lipsum[21]}
-        \bulletpoint{Langer vertikaler Abstand}<2cm>
-        \bulletpoint{Platzhalter}
+        \cvBulletPoint{Ohne nachfolgendem vertikalen Abstand}<0pt>
+        \cvBulletPoint{Kein Abstand zum Subtext}<0pt>[\lipsum[21]]
+        \cvBulletPoint{Langer vertikaler Abstand}<1cm>
+        \cvBulletPoint{Platzhalter}
     }
 }
 
