@@ -107,10 +107,13 @@
 
 \DeclareDocumentCommand\cvEntry{ m m d<> o d<> }{
     #1 & #2
-    \IfValueT{#4} {\newline
+    \IfValueTF{#4} {\newline
         \IfValueT{#3} {\vspace{#3}}
-        \color{itemSubtextColor}\footnotesize{#4}}
+        \color{itemSubtextColor}\footnotesize{#4}
         \IfValueT{#5} {\vspace{#5}}
+    }{
+        \IfValueT{#3} {\vspace{#3}}
+    }
     \tabularnewline
 }
 
