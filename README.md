@@ -52,6 +52,8 @@ Curriculum vitae written in LaTeX.
     1. Open and enjoy the created PDF either via your preferred folder viewer
        or run `xdg-open curriculum-vitae.pdf`
 
-## License
+## License and Copyright
 
-GPLv3, see LICENSE file within this repository
+Copyright (c) 2021 Maximilian Schott
+
+Licensed under GPLv3, see LICENSE file within this repository
