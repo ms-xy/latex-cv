@@ -109,17 +109,11 @@
     #1 & #2
     \IfValueTF{#4} {\newline
         \IfValueT{#3} {\vspace{#3}}
-        \color{itemSubtextColor}\footnotesize{#4}
+        {\color{itemSubtextColor}\footnotesize{#4}}
         \IfValueT{#5} {\vspace{#5}}
     }{
         \IfValueT{#3} {\vspace{#3}}
     }
-    \tabularnewline
-}
-
-\DeclareDocumentCommand\cvBulletEntry{ m m d<>}{
-    #1 & #2
-    \IfValueT {#3} {\vspace{#3}}
     \tabularnewline
 }
 
@@ -128,7 +122,7 @@
         \IfValueTF {#3} {
             \newline
             \IfValueTF {#2} {\vspace{#2}} {\vspace{2pt}}
-            \footnotesize{\color{itemSubtextColor}#3}
+            {\color{itemSubtextColor}\footnotesize{#3}}
             \IfValueTF {#4} {\vspace{#4}} {\vspace{4pt}}
         }{
             \IfValueTF {#2} {\vspace{#2}} {\vspace{4pt}}
@@ -278,13 +272,13 @@
 
 \section{Maschinenbau-Kenntnisse}
 \cvBulletList{%
-    \cvBulletEntry{Fundierte Kenntnisse}{
+    \cvEntry{Fundierte Kenntnisse}{
         \bulletpoint{Wasserstoffmotoren}{\lipsum[10]}
         \bulletpoint{Eintrag mit Subtext}{\lipsum[20]}
         \bulletpoint{Ohne Sub-Text}
     }
     \cvRulerSep
-    \cvBulletEntry{Fortgeschrittene Kenntnisse}{
+    \cvEntry{Fortgeschrittene Kenntnisse}{
         \bulletpoint{Ohne nachfolgendem vertikalen Abstand}<0pt>
         \bulletpoint{Kein Abstand zum Subtext}<0pt>{\lipsum[21]}
         \bulletpoint{Langer vertikaler Abstand}<2cm>
