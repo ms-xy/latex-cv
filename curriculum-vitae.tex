@@ -117,8 +117,9 @@
     \tabularnewline
 }
 
-\DeclareDocumentCommand\cvBulletEntry{ m m }{
+\DeclareDocumentCommand\cvBulletEntry{ m m d<>}{
     #1 & #2
+    \IfValueT {#3} {\vspace{#3}}
     \tabularnewline
 }
 
