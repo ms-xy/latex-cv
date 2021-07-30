@@ -173,7 +173,7 @@
             % row margin multiplier
             \renewcommand{\arraystretch}{1.5}
             \begin{tabular*}{\linewidth}{R{\cvPersonalDataLeftColumnWidth}|L{\cvPersonalDataRightColumnWidth}}
-                #2
+                \ignorespaces#2
             \end{tabular*}
             \egroup
         \end{minipage}
@@ -198,10 +198,10 @@
 }
 
 \DeclareDocumentCommand\cvEntry{ m m d<> o d<> }{
-    #1 & #2
+    \ignorespaces#1 & \ignorespaces#2
     \IfValueTF{#4} {\newline
         \IfValueT{#3} {\vspace{#3}}
-        {\color{itemSubtextColor}\footnotesize{#4}}
+        {\color{itemSubtextColor}\footnotesize{\ignorespaces#4}}
         \IfValueT{#5} {\vspace{#5}}
     }{
         \IfValueT{#3} {\vspace{#3}}
@@ -210,11 +210,11 @@
 }
 
 \DeclareDocumentCommand\cvBulletPoint{ m d<> o d<> }{
-    \item #1
+    \item \ignorespaces#1
         \IfValueTF {#3} {
             \newline
             \IfValueTF {#2} {\vspace{#2}} {\vspace{2pt}}
-            {\color{itemSubtextColor}\footnotesize{#3}}
+            {\color{itemSubtextColor}\footnotesize{\ignorespaces#3}}
             \IfValueTF {#4} {\vspace{#4}} {\vspace{4pt}}
         }{
             \IfValueTF {#2} {\vspace{#2}} {\vspace{4pt}}
