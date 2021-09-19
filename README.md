@@ -2,6 +2,10 @@
 
 Curriculum vitae written in LaTeX.
 
+Output of the example provided in the .tex file:
+
+![Example-Output-0](Example-Output-0.png) ![Example-Output-1](Example-Output-1.png) 
+
 ## Usage
 
 1. Get a copy of TeX Live (https://tug.org/texlive/)
